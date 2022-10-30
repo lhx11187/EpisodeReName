@@ -4,6 +4,8 @@ using System.Linq;
 string Season = "";
 string Seasonstr = "";
 string Episode = "";
+string ReplaceStrOld = "";
+string ReplaceStrNew = "";
 string[] strEpisode11 =
 {
     "第一集",
@@ -25098,8 +25100,10 @@ while (true)
     Console.WriteLine("1.（第一集替换为E01.）、（第1集替换为E01.）、（第01集替换为E01.）");
     Console.WriteLine("2.（第一话替换为E01.）、（第1话替换为E01.）、（第01话替换为E01.）");
     Console.WriteLine("3.（_01_替换为E01.）、（_1_替换为E01.）、（ 01 替换为E01.）、（ 1 替换为E01.）、（.1.替换为E01.）、（.01.替换为E01.）、（[01]替换为E01.）、（[1]替换为E01.）、（-01-替换为E01.）、（-1-替换为E01.）");
-    Console.WriteLine("4.(1.开头替换为E01.)、(01.开头替换为E01.)、(1-开头替换为E01.)、(01-开头替换为E01.)");
+    Console.WriteLine("4.(1.替换为E01.)、(01.替换为E01.)、(1-替换为E01.)、(01-替换为E01.)");
     Console.WriteLine("5.(_1替换为E01.)、(_01替换为E01.)、(-1替换为E01.)、(-01替换为E01.)");
+    Console.WriteLine("6.(1.开头替换为E01.)、(01.开头替换为E01.)、(1-开头替换为E01.)、(01-开头替换为E01.)");
+    Console.WriteLine("7.输入替换");
 
     ConsoleKeyInfo keyinfo = Console.ReadKey();
     if (keyinfo.Key == ConsoleKey.Enter || keyinfo.Key == ConsoleKey.D1 || keyinfo.Key == ConsoleKey.NumPad1)
@@ -25125,6 +25129,20 @@ while (true)
     if (keyinfo.Key == ConsoleKey.D5 || keyinfo.Key == ConsoleKey.NumPad5)
     {
         Episode = "5";
+        break;
+    }
+    if (keyinfo.Key == ConsoleKey.D6 || keyinfo.Key == ConsoleKey.NumPad6)
+    {
+        Episode = "6";
+        break;
+    }
+    if (keyinfo.Key == ConsoleKey.D7 || keyinfo.Key == ConsoleKey.NumPad7)
+    {
+        Episode = "7";
+        Console.WriteLine("输入待替换字符:");
+        ReplaceStrOld = Console.ReadLine();
+        Console.WriteLine("输入替换字符:");
+        ReplaceStrNew = Console.ReadLine();
         break;
     }
 }
@@ -25232,13 +25250,13 @@ while (true)
 
                 if (Episode == "4")
                 {
-                    if (filename.StartsWith(strEpisode41[i]))
+                    if (filename.Contains(strEpisode41[i]))
                         filenameNew = filename.Replace(strEpisode41[i], Seasonstr + strEpisodeNew[i]);
-                    if (filename.StartsWith(strEpisode42[i]))
+                    if (filename.Contains(strEpisode42[i]))
                         filenameNew = filename.Replace(strEpisode42[i], Seasonstr + strEpisodeNew[i]);
-                    if (filename.StartsWith(strEpisode43[i]))
+                    if (filename.Contains(strEpisode43[i]))
                         filenameNew = filename.Replace(strEpisode43[i], Seasonstr + strEpisodeNew[i]);
-                    if (filename.StartsWith(strEpisode44[i]))
+                    if (filename.Contains(strEpisode44[i]))
                         filenameNew = filename.Replace(strEpisode44[i], Seasonstr + strEpisodeNew[i]);
                 }
 
@@ -25254,10 +25272,24 @@ while (true)
                         filenameNew = filename.Replace(strEpisode54[i], Seasonstr + strEpisodeNew[i]);
                 }
 
+                if (Episode == "6")
+                {
+                    if (filename.StartsWith(strEpisode41[i]))
+                        filenameNew = filename.Replace(strEpisode41[i], Seasonstr + strEpisodeNew[i]);
+                    if (filename.StartsWith(strEpisode42[i]))
+                        filenameNew = filename.Replace(strEpisode42[i], Seasonstr + strEpisodeNew[i]);
+                    if (filename.StartsWith(strEpisode43[i]))
+                        filenameNew = filename.Replace(strEpisode43[i], Seasonstr + strEpisodeNew[i]);
+                    if (filename.StartsWith(strEpisode44[i]))
+                        filenameNew = filename.Replace(strEpisode44[i], Seasonstr + strEpisodeNew[i]);
+                }
+
             }
             filenameNew=filenameNew.Replace("..", ".");
             if(filenameNew.StartsWith(".S"))
                 filenameNew=filenameNew.Replace(".S", "S");
+            if(Episode == "7")
+                filenameNew = filenameNew.Replace(ReplaceStrOld,ReplaceStrNew);
             fi.MoveTo(Path.Combine(path, filenameNew));
             Console.WriteLine($"原文件名---{filename},新文件名---{filenameNew}");
         }
