@@ -1,7 +1,8 @@
 {
   "profiles": {
     "EpisodeReName": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "\"T:\\video\\TV\\国产剧\\毛骗终结篇\""
     }
   }
 }
